@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capstone Web Application</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Global Styling */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f9ff;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: #00796b;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover { text-decoration: underline; }
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 { color: #00796b; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    /* Portfolio */
+    .contact a {
+      color: #00796b;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .contact a:hover { text-decoration: underline; }
+    /* To-Do App */
+    #todo-input {
+      padding: 0.5rem;
+      width: 70%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #add-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #00796b;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #tasks li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem;
+      background: #f8f8f8;
+      margin: 0.3rem 0;
+      border-radius: 5px;
+    }
+    /* Product Listing */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 1rem;
+    }
+    .product {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    /* API Section */
+    #api-data {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #444;
+    }
+    /* Optimization Progress */
+    .progress {
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 20px;
+      margin: 1rem 0;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #00796b;
+      transition: width 0.5s;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #00796b;
+      color: white;
+      margin-top: 2rem;
+    }
+    @media (max-width: 600px) {
+      nav { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌐 Capstone Web Application</h1>
+    <nav>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#todo">To-Do</a>
+      <a href="#products">Products</a>
+      <a href="#api">API Demo</a>
+      <a href="#optimize">Optimization</a>
+    </nav>
+  </header>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <h2>👩‍💻 Portfolio</h2>
+    <div class="card">
+      <p>Hello! I'm <b>Tanisha Gupta</b>. Welcome to my personal portfolio.</p>
+      <p>Explore my skills, projects, and contact info below:</p>
+      <div class="contact">
+        📧 Email: <a href="mailto:tanishamaygupta@gmail.com">tanishamaygupta@gmail.com</a><br>
+        🔗 LinkedIn: <a href="https://www.linkedin.com/in/tanisha-gupta-1513932a1" target="_blank">View Profile</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- To-Do App -->
+  <section id="todo">
+    <h2>📝 To-Do List</h2>
+    <div class="card">
+      <input type="text" id="todo-input" placeholder="Add a new task...">
+      <button id="add-btn">Add</button>
+      <ul id="tasks"></ul>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products">
+    <h2>🛍️ Product Listing</h2>
+    <div class="card">
+      <label>Filter by Category: 
+        <select id="filter">
+          <option value="all">All</option>
+          <option value="electronics">Electronics</option>
+          <option value="clothing">Clothing</option>
+        </select>
+      </label>
+      <div class="products" id="product-list"></div>
+    </div>
+  </section>
+
+  <!-- API Demo -->
+  <section id="api">
+    <h2>🌍 API Fetch Demo</h2>
+    <div class="card">
+      <button onclick="fetchJoke()">Get a Joke</button>
+      <p id="api-data">Click the button to fetch data...</p>
+    </div>
+  </section>
+
+  <!-- Optimization -->
+  <section id="optimize">
+    <h2>⚡ Optimization Simulation</h2>
+    <div class="card">
+      <button onclick="runOptimization()">Run Optimization</button>
+      <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+      <p id="opt-result"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 | Built with ❤️ by Tanisha Gupta</p>
+  </footer>
+
+  <script>
+    // === TO-DO APP ===
+    const input = document.getElementById('todo-input');
+    const addBtn = document.getElementById('add-btn');
+    const tasks = document.getElementById('tasks');
+
+    function loadTasks(){
+      const saved = JSON.parse(localStorage.getItem("tasks")) || [];
+      tasks.innerHTML = "";
+      saved.forEach((t,i)=>{
+        let li = document.createElement("li");
+        li.innerHTML = t + " <button onclick='removeTask("+i+")'>❌</button>";
+        tasks.appendChild(li);
+      });
+    }
+    function addTask(){
+      if(input.value.trim()==="") return;
+      let saved = JSON.parse(localStorage.getItem("tasks")) || [];
+      saved.push(input.value);
+      localStorage.setItem("tasks",JSON.stringify(saved));
+      input.value="";
+      loadTasks();
+    }
+    function removeTask(i){
+      let saved = JSON.parse(localStorage.getItem("tasks")) || [];
+      saved.splice(i,1);
+      localStorage.setItem("tasks",JSON.stringify(saved));
+      loadTasks();
+    }
+    addBtn.addEventListener("click", addTask);
+    window.onload = loadTasks;
+
+    // === PRODUCTS ===
+    const products = [
+      {name:"Smartphone", category:"electronics", price:200, img:"https://via.placeholder.com/200x150?text=Phone"},
+      {name:"Laptop", category:"electronics", price:800, img:"https://via.placeholder.com/200x150?text=Laptop"},
+      {name:"T-Shirt", category:"clothing", price:20, img:"https://via.placeholder.com/200x150?text=T-Shirt"},
+      {name:"Jeans", category:"clothing", price:40, img:"https://via.placeholder.com/200x150?text=Jeans"}
+    ];
+    function displayProducts(filter="all"){
+      const list = document.getElementById("product-list");
+      list.innerHTML="";
+      products.filter(p=>filter==="all" || p.category===filter)
+              .forEach(p=>{
+        list.innerHTML += `
+          <div class="product">
+            <img src="${p.img}" alt="${p.name}">
+            <h4>${p.name}</h4>
+            <p>Price: $${p.price}</p>
+          </div>
+        `;
+      });
+    }
+    document.getElementById("filter").addEventListener("change",(e)=>displayProducts(e.target.value));
+    displayProducts();
+
+    // === API DEMO ===
+    async function fetchJoke(){
+      const res = await fetch("https://official-joke-api.appspot.com/jokes/random");
+      const data = await res.json();
+      document.getElementById("api-data").innerText = data.setup + " - " + data.punchline;
+    }
+
+    // === OPTIMIZATION SIMULATION ===
+    function runOptimization(){
+      const bar = document.getElementById("progress-bar");
+      const result = document.getElementById("opt-result");
+      bar.style.width="0%";
+      result.innerHTML="";
+      let steps=[
+        "✅ Minified CSS & JS",
+        "✅ Lazy loaded images",
+        "✅ Reduced HTTP requests",
+        "✅ Improved load speed",
+        "🚀 Optimization Complete!"
+      ];
+      steps.forEach((msg,i)=>{
+        setTimeout(()=>{
+          bar.style.width = ((i+1)/steps.length*100)+"%";
+          result.innerHTML += msg+"<br>";
+        },i*1000);
+      });
+    }
+  </script>
+</body>
+</html>
